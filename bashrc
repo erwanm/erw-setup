@@ -7,6 +7,8 @@
 # This script is intended to be sourced from $HOME/.bashrc
 #
 
+SCRIPT_PATH=$BASH_SOURCE
+
 #
 # Give argument $1 to override the default location of the main repository
 #
@@ -21,7 +23,7 @@ source $mainrepo/erw-bash-commons/lib/init-erw-pm.sh
 erw-pm addrepo $mainrepo
 
 # source my standard settings
-source bash-aliases.sh
+source $(dirname "$SCRIPT_PATH")/bash-aliases.sh
 
 # source machine-specific settings
 if [ -f $HOME/local/bashrc ]; then
