@@ -7,10 +7,10 @@
 # This script is intended to be sourced from $HOME/.bashrc
 #
 
-aliasesPath="bash-aliases"
+aliasesPath="bash-aliases.sh"
 
 # Get the location of this script
-SCRIPT_PATH=$BASH_SOURCE
+SCRIPT_PATH=$(dirname "$BASH_SOURCE")
 
 #
 # Give argument $1 to override the default location of the main repository
