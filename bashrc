@@ -7,6 +7,9 @@
 # This script is intended to be sourced from $HOME/.bashrc
 #
 
+aliasesPath="bash-aliases"
+
+# Get the location of this script
 SCRIPT_PATH=$BASH_SOURCE
 
 #
@@ -23,7 +26,11 @@ source $mainrepo/erw-bash-commons/lib/init-erw-pm.sh
 erw-pm addrepo $mainrepo
 
 # source my standard settings
-source $(dirname "$SCRIPT_PATH")/bash-aliases.sh
+if [ -f "$SCRIPT_PATH/$aliasesPath" ]; then
+    source "$SCRIPT_PATH/$aliasesPath"
+else
+    echo "Warning: file '$SCRIPT_PATH/$aliasesPath' not found." 1>&2
+fi
 
 # source machine-specific settings
 if [ -f $HOME/local/bashrc ]; then
