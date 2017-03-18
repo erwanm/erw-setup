@@ -8,6 +8,7 @@
 #
 
 aliasesPath="bash-aliases.sh"
+cloudScriptsPath="/erwanshomedir/cloud/private-cloud/always/scripts"
 
 # Get the location of this script
 SCRIPT_PATH=$(dirname "$BASH_SOURCE")
@@ -35,4 +36,11 @@ fi
 # source machine-specific settings
 if [ -f $HOME/local/bashrc ]; then
     source $HOME/local/bashrc
+fi
+
+# added March 17: add scripts to PATH from cloud dir
+if [ -d "$cloudScriptsPath" ]; then
+	export PATH=$PATH:$cloudScriptsPath
+else
+	echo "Warning: directory '$cloudScriptsPath' not found, cannot access cloud scripts" 1>&2
 fi
