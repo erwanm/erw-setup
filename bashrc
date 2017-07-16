@@ -8,7 +8,7 @@
 #
 
 aliasesPath="bash-aliases.sh"
-cloudScriptsPath="/erwanshomedir/cloud/private-cloud/always/scripts"
+cloudScriptsPath="/erwanshomedir/always/private-cloud/scripts"
 
 # Get the location of this script
 SCRIPT_PATH=$(dirname "$BASH_SOURCE")
