@@ -44,3 +44,6 @@ if [ -d "$cloudScriptsPath" ]; then
 else
 	echo "Warning: directory '$cloudScriptsPath' not found, cannot access cloud scripts" 1>&2
 fi
+
+# added August 20: encfs scripts repo
+erw-pm activate encfs-util
