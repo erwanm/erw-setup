@@ -114,7 +114,7 @@ function TRANSFER_full_homedir_sqgpg {
 
 function TRANSFER_full_homedir_sqgpg_backup_DD {
     mydate=$(date +"%y%m%d")
-    TRANSFER_full_homedir_sqgpg "$backupTargetFullHomedirDD/latitude-fullhomedir.$mydate.sqsh.gpg" "$tmpDirBackup"
+    TRANSFER_full_homedir_sqgpg "$backupTargetFullHomedirDD/$HOSTNAME-fullhomedir.$mydate.sqsh.gpg" "$tmpDirBackup"
 }
 
 # disabled December 2018: unworkable, would take too much time
