@@ -12,8 +12,7 @@ backupTargetActiveRemote="dilly:/experimental/Erwan/backup/always"
 
 homeArchives="/media/erwan/sg-big-ext4/archives.encfs"
 homeArchivesName="archives"
-# TODO check dir struct on tera
-backupTargetArchivesHD="/media/erwan/tera/backup/always"
+backupTargetArchivesHD="/media/erwan/tera-ext4/backup/"
 backupTargetArchivesRemote="dilly:/experimental/Erwan/backup/always"
 
 fullHomedir="/home/erwan"
@@ -54,11 +53,12 @@ function TRANSFER_home_active_backup_remote {
 
 
 function TRANSFER_home_archives_backup_HD {
-    local regularity="$1"
-    if [ -z "$regularity" ]; then echo "Error: arg 'regularity' is empty." 1>&2; exit 3; fi
+#    local regularity="$1"
+#    if [ -z "$regularity" ]; then echo "Error: arg 'regularity' is empty." 1>&2; exit 3; fi
     checkDir "$homeArchives" || exit $?
     checkDir "$backupTargetArchivesHD" || exit $?
-    TRANSFER_clear_rsync "$homeArchives" "$backupTargetArchivesHD/$homeArchivesName.$regularity.encfs" || exit $?
+    #    TRANSFER_clear_rsync "$homeArchives" "$backupTargetArchivesHD/$homeArchivesName.$regularity.encfs" || exit $?
+    TRANSFER_clear_rsync "$homeArchives" "$backupTargetArchivesHD/$homeArchivesName.encfs" || exit $?
 }
 
 function TRANSFER_home_archives_backup_remote {
@@ -120,7 +120,7 @@ function TRANSFER_full_homedir_sqgpg_backup_DD {
 # disabled December 2018: unworkable, would take too much time
 #function TRANSFER_full_homedir_sqgpg_backup_remote {
 #    mydate=$(date +"%y%m%d")
-#    TRANSFER_full_homedir_sqgpg "$backupTargetFullHomedirRemote/latitude-fullhomedir.$mydate.sqsh.gpg" "$remoteProxy"
+#    TRANSFER_full_homedir_sqgpg "$backupTargetFullHomedirRemote/$HOSTNAME-fullhomedir.$mydate.sqsh.gpg" "$remoteProxy"
 #}
 
 
