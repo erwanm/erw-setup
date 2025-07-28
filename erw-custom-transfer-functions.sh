@@ -12,7 +12,7 @@ backupTargetActiveRemote="dilly:/experimental/Erwan/backup/always"
 
 homeArchives="/media/erwan/sg-big-ext4/archives.encfs"
 homeArchivesName="archives"
-backupTargetArchivesHD="/media/erwan/tera-ext4/backup/"
+backupTargetArchivesHD="/media/erwan/wd2Text4/backup/"
 backupTargetArchivesRemote="dilly:/experimental/Erwan/backup/always"
 
 fullHomedir="/home/erwan"
