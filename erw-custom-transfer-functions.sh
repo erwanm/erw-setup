@@ -90,11 +90,10 @@ function TRANSFER_home {
 }
 
 
-
-function TRANSFER_full_homedir_sqgpg {
-    local destFile="$1"
-    #    local proxyOpt="$2"
-    local tmpDirOpt="$2"
+function TRANSFER_source_sqgpg {
+    local sourceDir="$1"
+    local destFile="$2"
+    local tmpDirOpt="$3"
 
     checkDir "$(dirname "$destFile")" || exit $?
     if [ ! -z "$tmpDirOpt" ] && [ -d "$tmpDirOpt" ]; then
@@ -103,19 +102,31 @@ function TRANSFER_full_homedir_sqgpg {
 	sqFile=$(mktemp --tmpdir "TRANSFER_full_homedir.XXXXXXXXXX")
     fi
     rm -f $sqFile
-    TRANSFER_squash "$fullHomedir" "$sqFile"  || exit $?
+    TRANSFER_squash "$sourceDir" "$sqFile"  || exit $?
     TRANSFER_gpg "$sqFile" "$destFile" "$myGPGKey" || exit $?
-#    comm="rsync $proxyOpt $sqFile.gpg $destFile"
-#    eval "$comm"  || exit $?
     rm -f "$sqFile"
 }
 
 
-
-function TRANSFER_full_homedir_sqgpg_backup_DD {
+function TRANSFER_homedir_and_active_sqgpg_backup_DD {
     mydate=$(date +"%y%m%d")
-    TRANSFER_full_homedir_sqgpg "$backupTargetFullHomedirDD/$HOSTNAME-fullhomedir.$mydate.sqsh.gpg" "$tmpDirBackup"
+
+    # Step 1: transfer full homedir, but this does not include content in dirs as symlinks
+    TRANSFER_source_sqgpg "$fullHomedir" "$backupTargetFullHomedirDD/$HOSTNAME-homedir.$mydate.sqsh.gpg" "$tmpDirBackup"
+    # Step 2: transfer active dir containing the data
+    TRANSFER_source_sqgpg "$homeActive" "$backupTargetFullHomedirDD/$HOSTNAME-active.$mydate.sqsh.gpg" "$tmpDirBackup"
 }
+
+
+
+
+function TRANSFER_home_active_backup_HD {
+    local regularity="$1"
+    if [ -z "$regularity" ]; then echo "Error: arg 'regularity' is empty." 1>&2; exit 3; fi
+    checkDir "$backupTargetActiveHD" || exit $?
+    TRANSFER_encfs_rsync_pass_custom_pwd "$homeActive" "$backupTargetActiveHD/$homeActiveName.$regularity.encfs" || exit $?
+}
+
 
 # disabled December 2018: unworkable, would take too much time
 #function TRANSFER_full_homedir_sqgpg_backup_remote {
