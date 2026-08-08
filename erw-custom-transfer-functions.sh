@@ -12,7 +12,8 @@ backupTargetActiveRemote="dilly:/experimental/Erwan/backup/always"
 
 homeArchives="/media/erwan/sg-big-ext4/archives.encfs"
 homeArchivesName="archives"
-backupTargetArchivesHD="/media/erwan/wd2Text4/backup/"
+backupTargetArchivesHD_WDDrivePlus5TB="/media/erwan/XXX"
+backupTargetArchivesHD_WDPassport="/media/erwan/tera-ext4/archives.backup/"
 backupTargetArchivesRemote="dilly:/experimental/Erwan/backup/always"
 
 fullHomedir="/home/erwan"
@@ -54,11 +55,20 @@ function TRANSFER_home_active_backup_remote {
 
 function TRANSFER_home_archives_backup_HD {
 #    local regularity="$1"
-#    if [ -z "$regularity" ]; then echo "Error: arg 'regularity' is empty." 1>&2; exit 3; fi
+    #    if [ -z "$regularity" ]; then echo "Error: arg 'regularity' is empty." 1>&2; exit 3; fi
+    local location="$1"
+    if [ "$location" == "24" ]; then
+	target="$backupTargetArchivesHD_WDDrivePlus5TB"
+     elif [ "$location" == "home" ]; then
+	target="$backupTargetArchivesHD_WDPassport"
+    else
+	echo "Error: invalid value for arg 'location', must be '24' or 'home'." 1>&2
+	exit 3
+    fi
     checkDir "$homeArchives" || exit $?
-    checkDir "$backupTargetArchivesHD" || exit $?
+    checkDir "$target" || exit $?
     #    TRANSFER_clear_rsync "$homeArchives" "$backupTargetArchivesHD/$homeArchivesName.$regularity.encfs" || exit $?
-    TRANSFER_clear_rsync "$homeArchives" "$backupTargetArchivesHD/$homeArchivesName.encfs" || exit $?
+    TRANSFER_clear_rsync "$homeArchives" "$target/$homeArchivesName.encfs" || exit $?
 }
 
 function TRANSFER_home_archives_backup_remote {
