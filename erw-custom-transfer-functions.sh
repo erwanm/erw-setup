@@ -12,7 +12,7 @@ backupTargetActiveRemote="dilly:/experimental/Erwan/backup/always"
 
 homeArchives="/media/erwan/sg-big-ext4/archives.encfs"
 homeArchivesName="archives"
-backupTargetArchivesHD_WDDrivePlus5TB="/media/erwan/wd2Text4/backup/archives.encfs/"
+backupTargetArchivesHD_WDDrivePlus5TB="/media/erwan/wd2Text4/backup/"
 backupTargetArchivesHD_WDPassport="/media/erwan/tera-ext4/archives.backup/"
 backupTargetArchivesRemote="dilly:/experimental/Erwan/backup/always"
 
